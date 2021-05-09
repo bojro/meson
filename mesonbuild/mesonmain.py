@@ -50,7 +50,9 @@ def setup_vsenv():
     if bat_system == 'MINGW32' or bat_system == 'MINGW64':
         # Only enable this if no local build toolchain has been installed.
         # This allows you to run Meson directly from Git's dev prompt.
+        print('Has Mingw')
         if shutil.which('cc'):
+            print('Has cc so not enabling.')
             return
     if os.environ.get('OSTYPE', bat_placeholder) == 'cygwin':
         return
@@ -67,6 +69,7 @@ def setup_vsenv():
     if not bat_info:
         # VS installer instelled but not VS itself maybe?
         return
+    print('Activating VS environment')
     bat_root = bat_info[0]['installationPath']
     bat_path = bat_root + r'\VC\Auxiliary\Build\vcvars64.bat'
     if not os.path.exists(bat_path):
